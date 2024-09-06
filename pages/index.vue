@@ -1,15 +1,36 @@
 <template>
-<div>Hello World</div>
+  <div>Hello World</div>
 </template>
 
 <script lang="ts" setup>
-import {type Jar} from "~/types/jar"
+import {type Jar, jarSchema} from "~/types/jar"
 import {RecordId} from "surrealdb.js";
-const jar:Jar = {
-  id: new RecordId('test', 'myid'),
-  title: 'Aha!',
-  creation_date: new Date
+import {type User, userSchema} from "~/types/user";
+
+const userData: User = {
+  id: new RecordId('users', 'hans'),
+  email: 'email@me.tld',
+  username: 'Hans',
+  creationDate: new Date,
+  kind: "User"
 }
 
-console.log(jar)
+const user = userSchema.safeParse(userData);
+
+if (user.success) {
+  const jarData: Jar = {
+    id: new RecordId('test', 'nix'),
+    title: 'xx',
+    creationDate: new Date,
+    kind: 'Jar',
+    owner: user.data.id
+  }
+  const jar = jarSchema.safeParse(jarData)
+  console.log(jar)
+}
+
+
+
+
+
 </script>
