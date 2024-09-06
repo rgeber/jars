@@ -4,8 +4,9 @@
 
 <script lang="ts" setup>
 import {type Jar} from "~/types/jar"
+import {RecordId} from "surrealdb.js";
 const jar:Jar = {
-  id: 'xx',
+  id: new RecordId('test', 'myid'),
   title: 'Aha!',
   creation_date: new Date
 }
