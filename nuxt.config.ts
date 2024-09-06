@@ -1,24 +1,27 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2024-04-03',
-  devtools: { enabled: true },
-  modules: ['@nuxt/icon', 'nuxt-oidc-auth'],
-  css: ['~/assets/css/nexus.scss'],
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
+    compatibilityDate: '2024-04-03',
+    devtools: {enabled: true},
+    modules: ['@nuxt/icon', 'nuxt-oidc-auth'],
+    css: ['~/assets/css/nexus.scss'],
+    typescript: {
+        strict: true
     },
-  },
-  icon: {
-    customCollections: [
-      {
-        prefix: 'project',
-        dir: './assets/icons/project'
-      },
-    ],
-  },
-  oidc: {
+    postcss: {
+        plugins: {
+            tailwindcss: {},
+            autoprefixer: {},
+        },
+    },
+    icon: {
+        customCollections: [
+            {
+                prefix: 'project',
+                dir: './assets/icons/project'
+            },
+        ],
+    },
+    oidc: {
         defaultProvider: 'oidc',
 
         // Config reference: https://github.com/itpropro/nuxt-oidc-auth/tree/main#providers
