@@ -6,6 +6,7 @@
 import {type Jar, jarSchema} from "~/types/jar"
 import {RecordId} from "surrealdb.js";
 import {type User, userSchema} from "~/types/user";
+const { $surreal } = useNuxtApp();
 
 const userData: User = {
   id: new RecordId('users', 'hans'),
@@ -30,6 +31,11 @@ if (user.success) {
 }
 
 
+
+onBeforeMount(async () => {
+  const ns = await $surreal.query("INFO FOR NS;")
+  console.log(ns)
+})
 
 
 

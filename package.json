@@ -4,8 +4,13 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+
+    "dev": "concurrently --names surreal,nuxt \"pnpm run dev:surreal\" \"pnpm run dev:nuxt\"",
+    "dev:surrealdb": "surreal start --allow-all --auth --user root --pass root -l trace --bind 0.0.0.0:3001",
+    "dev:surreal": "concurrently --names surreal,surrealinit \"pnpm run dev:surrealdb\" \"sleep 1 ; _script/import_surql.sh\"",
+    "dev:nuxt": "nuxt dev",
     "dev:prepare": "nuxt prepare",
+    
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
@@ -22,6 +27,7 @@
   "packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1",
   "devDependencies": {
     "autoprefixer": "^10.4.20",
+    "concurrently": "^8.2.2",
     "postcss": "^8.4.45",
     "sass": "^1.78.0",
     "tailwindcss": "^3.4.10",

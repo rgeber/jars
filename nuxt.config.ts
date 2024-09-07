@@ -1,11 +1,24 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     compatibilityDate: '2024-04-03',
+    runtimeConfig: {
+        public: {
+            surrealdb: {
+                url: 'ws://localhost:3001/rpc',
+                ns: 'test',
+                db: 'test'
+            }
+        }
+    },
+    // alias: {
+    //     '@types': '~/types',
+    // },
     devtools: {enabled: true},
     modules: ['@nuxt/icon', 'nuxt-oidc-auth'],
     css: ['~/assets/css/nexus.scss'],
     typescript: {
-        strict: true
+        strict: true,
+        typeCheck: true
     },
     postcss: {
         plugins: {
