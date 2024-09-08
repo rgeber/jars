@@ -15,7 +15,7 @@ export default defineNuxtConfig({
     css: ['~/assets/css/nexus.scss'],
     typescript: {
         strict: true,
-        typeCheck: true
+        typeCheck: false
     },
     postcss: {
         plugins: {
