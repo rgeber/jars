@@ -7,7 +7,7 @@
 
     "dev": "concurrently --names surreal,nuxt \"pnpm run dev:surreal\" \"pnpm run dev:nuxt\"",
     "dev:surrealdb": "surreal start --allow-all --auth --user root --pass root -l trace --bind 0.0.0.0:3001",
-    "dev:surreal": "concurrently --names surreal,surrealinit \"pnpm run dev:surrealdb\" \"sleep 1 ; _script/import_surql.sh\"",
+    "dev:surreal": "concurrently --names surreal,surrealinit \"pnpm run dev:surrealdb\" \"sleep 1 ; _script/dev/import_surql.sh\"",
     "dev:nuxt": "nuxt dev",
     "dev:prepare": "nuxt prepare",
     

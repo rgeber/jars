@@ -1,12 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import {fa} from "cronstrue/dist/i18n/locales/fa";
+
 export default defineNuxtConfig({
     compatibilityDate: '2024-04-03',
     runtimeConfig: {
         public: {
             surrealdb: {
                 url: 'ws://localhost:3001/rpc',
-                ns: 'test',
-                db: 'test'
+                ns: 'jars',
+                db: 'jars'
             }
         }
     },
@@ -59,7 +61,7 @@ export default defineNuxtConfig({
                 exposeAccessToken: true,
 
                 // Request additional user information instead of just some ID
-                scope: ['openid', 'profile', 'email'],
+                scope: ['openid', 'profile', 'email', 'jars', 'offline_access'],
 
                 // Optional stuff that may come in handy
 
@@ -69,12 +71,9 @@ export default defineNuxtConfig({
             }
         },
         session: {
-            // Those need to be false, otherwise the login will fail (why?)
-            // Might need some of that nitro persistence (see below)
-            // https://github.com/itpropro/nuxt-oidc-auth/issues/10
-            expirationCheck: false,
-            automaticRefresh: false,
-            expirationThreshold: 3600,
+            expirationCheck: true,
+            automaticRefresh: true,
+            expirationThreshold: 10,
         },
         middleware: {
 
@@ -92,7 +91,7 @@ export default defineNuxtConfig({
         storage: { // Local file system storage for demo purposes
             oidc: {
                 driver: 'fs',
-                base: '_nitro/oidc'
+                base: './_nitro/oidc'
             }
         }
     },

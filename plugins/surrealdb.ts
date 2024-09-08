@@ -25,6 +25,8 @@ export default defineNuxtPlugin((nuxtApp) => {
                 database: config.db
             })
 
+            console.log(user.value.accessToken)
+
             await surreal.authenticate(user.value.accessToken!)
             console.debug("SurrealDB connected successfully")
 
