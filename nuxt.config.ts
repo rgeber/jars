@@ -1,5 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import {fa} from "cronstrue/dist/i18n/locales/fa";
 
 export default defineNuxtConfig({
     compatibilityDate: '2024-04-03',
