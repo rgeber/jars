@@ -10,9 +10,6 @@ export default defineNuxtConfig({
             }
         }
     },
-    // alias: {
-    //     '@types': '~/types',
-    // },
     devtools: {enabled: true},
     modules: ['@nuxt/icon', 'nuxt-oidc-auth'],
     css: ['~/assets/css/nexus.scss'],

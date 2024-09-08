@@ -46,6 +46,11 @@ Jars was developed using [Authentik][1]. The following documentation is based on
 
 Contributions are welcome. Feel free to suggest additional features, point out [issues][14] or fix bugs you come across. 
 
+## TODO
+
+* Generator for SURQL files (e.g. ask for JWKS URL, Database, Namespace, etc.)
+* Generator for OIDC env variables
+
 ## Troubleshooting
 
 > TODO
