@@ -4,6 +4,9 @@
     <p>
       <button @click="logout('oidc')">Logout</button>
     </p>
+    <p>
+      <button @click="refresh()">Refresh</button>
+    </p>
   </div>
 </template>
 
@@ -14,7 +17,7 @@ import {type User, userSchema} from "~/types/user";
 
 const { $surreal } = useNuxtApp();
 
-const {logout} = useOidcAuth()
+const {logout, refresh} = useOidcAuth()
 
 const userData: User = {
   id: new RecordId('users', 'hans'),

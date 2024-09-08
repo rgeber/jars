@@ -6,6 +6,7 @@ export const userSchema = z.object({
     username: z.string().min(3).max(63),
     email: z.string().email(),
     creationDate: z.date(),
+    name: z.string().min(1).max(63)
 })
 
 export type User = z.infer<typeof userSchema> & {kind: 'User'}

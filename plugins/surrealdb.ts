@@ -1,5 +1,7 @@
-import Surreal from "surrealdb.js";
+import Surreal, {RecordId} from "surrealdb.js";
 import {watch, ref} from 'vue';
+import {useUserService} from "~/composables/useUser";
+import {User, userSchema} from "~/types/user";
 
 export default defineNuxtPlugin((nuxtApp) => {
 
@@ -11,7 +13,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     const surreal = new Surreal()
     const surrealConnected = ref(false)
 
-    const connDB = async () => {
+    const connectSurreal = async () => {
         try {
             if (typeof user.value.accessToken !== 'string') {
                 console.error('SurrealDB connection failed. User access token is undefined.')
@@ -26,11 +28,31 @@ export default defineNuxtPlugin((nuxtApp) => {
                 database: config.db
             })
 
-            console.log(user.value.accessToken)
+            console.log(user.value)
 
             await surreal.authenticate(user.value.accessToken!)
             console.debug("SurrealDB connected successfully")
             surrealConnected.value = true
+
+            const {getUserByUsername, createUser} = useUserService()
+            const existingUser = await getUserByUsername('email@romangeber.com')
+
+            if (existingUser === null) {
+                const newUserEntry: User = {
+                    id: new RecordId('user', user.value.providerInfo.email),
+                    username: user.value.providerInfo.nickname,
+                    email: user.value.providerInfo.email,
+                    creationDate: new Date(),
+                    name: user.value.providerInfo.name,
+                    kind: "User"
+                }
+
+                const newUserValidation = userSchema.safeParse(newUserEntry);
+
+                if (newUserValidation.success) {
+                    await createUser(newUserEntry)
+                }
+            }
 
         } catch (e) {
             console.error("Failed to connect to SurrealDB", e)
@@ -42,7 +64,7 @@ export default defineNuxtPlugin((nuxtApp) => {
             () => loggedIn,
             async () => {
                 if (loggedIn.value === true) {
-                    await connDB()
+                    await connectSurreal()
                 }
             }, {immediate: true}
         )

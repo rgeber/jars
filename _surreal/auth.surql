@@ -39,3 +39,4 @@ DEFINE FIELD email ON user TYPE string ASSERT string::is::email($value);
 -- We define some other information present in the token that we want to store.
 DEFINE FIELD name ON user TYPE string;
 DEFINE FIELD username ON user TYPE string;
+DEFINE FIELD creationDate ON user TYPE datetime DEFAULT time::now();

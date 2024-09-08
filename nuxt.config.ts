@@ -91,7 +91,7 @@ export default defineNuxtConfig({
         storage: { // Local file system storage for demo purposes
             oidc: {
                 driver: 'fs',
-                base: './_nitro/oidc'
+                base: './.tmp/nitro/oidc'
             }
         }
     },
