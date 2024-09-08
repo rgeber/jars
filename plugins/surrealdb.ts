@@ -1,7 +1,7 @@
 import Surreal, {RecordId} from "surrealdb.js";
 import {watch, ref} from 'vue';
 import {useUserService} from "~/composables/useUser";
-import {User, userSchema} from "~/types/user";
+import {type User, userSchema} from "~/types/user";
 
 export default defineNuxtPlugin((nuxtApp) => {
 
@@ -28,8 +28,6 @@ export default defineNuxtPlugin((nuxtApp) => {
                 database: config.db
             })
 
-            console.log(user.value)
-
             await surreal.authenticate(user.value.accessToken!)
             console.debug("SurrealDB connected successfully")
             surrealConnected.value = true
@@ -38,6 +36,7 @@ export default defineNuxtPlugin((nuxtApp) => {
             const existingUser = await getUserByUsername('email@romangeber.com')
 
             if (existingUser === null) {
+                console.debug('No existing database entry for found for authenticated user. Creating entry.')
                 const newUserEntry: User = {
                     id: new RecordId('user', user.value.providerInfo.email),
                     username: user.value.providerInfo.nickname,
@@ -51,6 +50,9 @@ export default defineNuxtPlugin((nuxtApp) => {
 
                 if (newUserValidation.success) {
                     await createUser(newUserEntry)
+                    console.debug('Database entry for authenticated user created.')
+                } else {
+                    console.error('Database entry creation for authenticated user failed due to validation failure.')
                 }
             }
 

@@ -9,12 +9,11 @@ export const useUserService = () => {
     const getUserByUsername = async (username: string): Promise<User | null> => {
         const result = await $surreal.select(new RecordId('user', username))
 
-        console.log(result)
-        const x  = userSchema.safeParse(result);
-        console.log(x)
-        if (x.success) {
+        const resultValidation  = userSchema.safeParse(result);
+
+        if (resultValidation.success) {
             return {
-                ...x.data,
+                ...resultValidation.data,
                 kind: 'User'
             };
         } else {
