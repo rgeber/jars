@@ -1,5 +1,5 @@
 import Surreal from "surrealdb.js";
-import {watch} from 'vue';
+import {watch, ref} from 'vue';
 
 export default defineNuxtPlugin((nuxtApp) => {
 
@@ -9,6 +9,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     const {loggedIn, user} = useOidcAuth()
 
     const surreal = new Surreal()
+    const surrealConnected = ref(false)
 
     const connDB = async () => {
         try {
@@ -29,6 +30,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
             await surreal.authenticate(user.value.accessToken!)
             console.debug("SurrealDB connected successfully")
+            surrealConnected.value = true
 
         } catch (e) {
             console.error("Failed to connect to SurrealDB", e)
@@ -49,6 +51,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     return {
         provide: {
             surreal,
+            surrealConnected,
         }
     }
 });

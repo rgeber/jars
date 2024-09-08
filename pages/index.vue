@@ -38,7 +38,7 @@ if (user.success) {
   console.log(jar)
 }
 
-
+watch (() => useNuxtApp().$surrealConnected, (nv) => console.log(nv.value), {immediate: true})
 
 // onBeforeMount(async () => {
 //   const ns = await $surreal.query("INFO FOR NS;")
