@@ -42,7 +42,7 @@ export default defineNuxtConfig({
                 authorizationUrl: 'https://auth.geber.io/application/o/authorize/',
                 tokenUrl: 'https://auth.geber.io/application/o/token/',
                 userinfoUrl: 'https://auth.geber.io/application/o/userinfo/',
-                logoutUrl: 'https://auth.geber.io/application/o/nuxttest/end-session/',
+                logoutUrl: 'https://auth.geber.io/application/o/jars/end-session/',
                 redirectUri: 'http://localhost:3000/auth/oidc/callback',
 
                 // They need to be set empty for the .env variables to take effect
@@ -82,7 +82,7 @@ export default defineNuxtConfig({
             // Untested
             globalMiddlewareEnabled: false,
 
-            // Enables the creaton of a custom login page via /auth/login
+            // Enables the creation of a custom login page via /auth/login
             // No username / password but really just another button from what I get.
             customLoginPage: true,
         },
