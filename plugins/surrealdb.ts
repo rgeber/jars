@@ -15,6 +15,7 @@ export default defineNuxtPlugin((nuxtApp) => {
                     namespace: config.ns,
                     database: config.db
                 })
+                // TODO: Remove in favor of token auth
                 await surreal.signin({
                     username: 'root',
                     password: 'root'
