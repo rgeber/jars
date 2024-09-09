@@ -25,7 +25,7 @@ DEFINE TABLE user SCHEMAFULL
     $scope = "user"
 
     -- In authentik use the preview function of your provider to see the `aud` value.
-    -- FIXME: Changer this to YOUR audience value
+    -- FIXME: Change this to YOUR audience value
     AND $token.aud CONTAINS "6yeybrBPYSNdaXsuqujiVIn87Mj1OsUpeHd3yKlZ"
 
     -- The email claim must match the email of the user being queried.
@@ -40,3 +40,5 @@ DEFINE FIELD email ON user TYPE string ASSERT string::is::email($value);
 DEFINE FIELD name ON user TYPE string;
 DEFINE FIELD username ON user TYPE string;
 DEFINE FIELD creationDate ON user TYPE datetime DEFAULT time::now();
+
+

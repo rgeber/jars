@@ -5,7 +5,10 @@
       <button @click="logout('oidc')">Logout</button>
     </p>
     <p>
-      <button @click="refresh()">Refresh</button>
+      <button @click="refresh()">Token Refresh</button>
+    </p>
+    <p>
+      <button @click="createJar()">Make jar</button>
     </p>
   </div>
 </template>
@@ -13,35 +16,33 @@
 <script lang="ts" setup>
 import {type Jar, jarSchema} from "~/types/jar"
 import {RecordId} from "surrealdb.js";
-import {type User, userSchema} from "~/types/user";
-
-const { $surreal } = useNuxtApp();
+import {useJarService} from "~/composables/useJar";
 
 const {logout, refresh} = useOidcAuth()
 
-const userData: User = {
-  id: new RecordId('users', 'hans'),
-  email: 'email@me.tld',
-  username: 'Hans',
-  creationDate: new Date,
-  kind: "User"
-}
-
-const user = userSchema.safeParse(userData);
-
-if (user.success) {
+const createJar = async () => {
   const jarData: Jar = {
-    id: new RecordId('test', 'nix'),
+    id: new RecordId('test', 'test'+new Date()),
     title: 'xx',
     creationDate: new Date,
     kind: 'Jar',
-    owner: user.data.id
+    owner: useNuxtApp().$surrealUserAccount.value.id,
+    ownerEmail: useNuxtApp().$surrealUserAccount.value.email
   }
   const jar = jarSchema.safeParse(jarData)
   console.log(jar)
+
+
+  const {createJar, getAllJars} = useJarService()
+
+  await createJar(jarData)
+
+  const existingJars = await getAllJars()
+  console.log(existingJars)
+
 }
 
-watch (() => useNuxtApp().$surrealConnected, (nv) => console.log(nv.value), {immediate: true})
+// watch (() => useNuxtApp().$surrealConnected, (nv) => console.log(nv.value), {immediate: true})
 
 // onBeforeMount(async () => {
 //   const ns = await $surreal.query("INFO FOR NS;")

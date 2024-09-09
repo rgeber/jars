@@ -6,7 +6,8 @@ export const jarSchema = z.object({
   id: recordIdSchema,
   title: z.string().min(1).max(127),
   creationDate: z.date(),
-  owner: recordIdSchema
+  owner: recordIdSchema,
+  ownerEmail: z.string().email()
 })
 
 export type Jar = z.infer<typeof jarSchema> & {kind: 'Jar'}

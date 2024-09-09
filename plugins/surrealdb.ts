@@ -12,6 +12,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     const surreal = new Surreal()
     const surrealConnected = ref(false)
+    const surrealUserAccount = ref()
 
     const connectSurreal = async () => {
         try {
@@ -51,9 +52,12 @@ export default defineNuxtPlugin((nuxtApp) => {
                 if (newUserValidation.success) {
                     await createUser(newUserEntry)
                     console.debug('Database entry for authenticated user created.')
+                    surrealUserAccount.value = newUserEntry;
                 } else {
                     console.error('Database entry creation for authenticated user failed due to validation failure.')
                 }
+            } else {
+                surrealUserAccount.value = existingUser;
             }
 
         } catch (e) {
@@ -76,6 +80,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         provide: {
             surreal,
             surrealConnected,
+            surrealUserAccount,
         }
     }
 });

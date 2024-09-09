@@ -24,6 +24,7 @@ export const useUserService = () => {
 
     // Create a new character
     const createUser = async (newUser: User): Promise<void> => {
+        console.log(newUser);
         await $surreal.create('user', newUser);
     };
 
