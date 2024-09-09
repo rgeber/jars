@@ -39,7 +39,7 @@ const createJar = async () => {
 
   const {createJar, getAllJars} = useJarService()
 
-  await createJar(jarData)
+  console.log(await createJar(jarData))
 
   const existingJars = await getAllJars()
   console.log(existingJars)
@@ -51,7 +51,7 @@ const {fetchAllJars} = useJarStore()
 
 const stuff = async () => {
   await fetchAllJars();
-  console.log(jars.value)
+  console.log(jars.value[0])
 }
 
 
