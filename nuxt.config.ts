@@ -12,7 +12,7 @@ export default defineNuxtConfig({
         }
     },
     devtools: {enabled: true},
-    modules: ['@nuxt/icon', 'nuxt-oidc-auth'],
+    modules: ['@nuxt/icon', 'nuxt-oidc-auth', '@pinia/nuxt'],
     css: ['~/assets/css/nexus.scss'],
     typescript: {
         strict: true,
@@ -84,6 +84,9 @@ export default defineNuxtConfig({
             // No username / password but really just another button from what I get.
             customLoginPage: true,
         },
+    },
+    pinia: {
+        storesDirs: ['./stores/**'],
     },
     nitro: {
         preset: 'node-server',

@@ -4,19 +4,18 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-
     "dev": "concurrently --names surreal,nuxt \"pnpm run dev:surreal\" \"pnpm run dev:nuxt\"",
     "dev:surrealdb": "surreal start --allow-all --auth --user root --pass root -l trace --bind 0.0.0.0:3001",
     "dev:surreal": "concurrently --names surreal,surrealinit \"pnpm run dev:surrealdb\" \"sleep 1 ; _script/dev/import_surql.sh\"",
     "dev:nuxt": "nuxt dev",
     "dev:prepare": "nuxt prepare",
-    
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "@nuxt/icon": "^1.5.1",
+    "@pinia/nuxt": "^0.5.4",
     "nuxt": "^3.13.0",
     "nuxt-oidc-auth": "^0.13.0",
     "surrealdb.js": "1.0.0-beta.18",

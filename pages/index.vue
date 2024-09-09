@@ -10,6 +10,9 @@
     <p>
       <button @click="createJar()">Make jar</button>
     </p>
+    <p>
+      <button @click="stuff()">Fetch Jars</button>
+    </p>
   </div>
 </template>
 
@@ -17,6 +20,7 @@
 import {type Jar, jarSchema} from "~/types/jar"
 import {RecordId} from "surrealdb.js";
 import {useJarService} from "~/composables/useJar";
+import {useJarStore} from "~/stores/jar";
 
 const {logout, refresh} = useOidcAuth()
 
@@ -41,6 +45,15 @@ const createJar = async () => {
   console.log(existingJars)
 
 }
+
+const {jars} = storeToRefs(useJarStore())
+const {fetchAllJars} = useJarStore()
+
+const stuff = async () => {
+  await fetchAllJars();
+  console.log(jars.value)
+}
+
 
 // watch (() => useNuxtApp().$surrealConnected, (nv) => console.log(nv.value), {immediate: true})
 
