@@ -10,9 +10,9 @@ export default defineNuxtPlugin((nuxtApp) => {
     const config = useRuntimeConfig().public.surrealdb
     const {loggedIn, user} = useOidcAuth()
 
-    const surreal = new Surreal()
-    const surrealConnected = ref(false)
-    const surrealUserAccount = ref<User>()
+    const surreal: Surreal = new Surreal()
+    const surrealConnected = ref<boolean>(false)
+    const surrealUserAccount = ref<User | null>(null)
 
     const connectSurreal = async () => {
         try {

@@ -20,8 +20,8 @@
 </template>
 
 <script lang="ts" setup>
-import {type Jar, jarSchema, type NewJar, newJarSchema} from "~/types/jar"
-import {RecordId} from "surrealdb.js";
+import {type NewJar, newJarSchema} from "~/types/jar"
+
 import {useJarService} from "~/composables/useJar";
 import {useJarStore} from "~/stores/jar";
 
@@ -33,8 +33,8 @@ const createJar = async () => {
   const jarData: NewJar = {
     title: 'New shit',
     creationDate: new Date,
-    owner: useNuxtApp().$surrealUserAccount.value.id,
-    ownerEmail: useNuxtApp().$surrealUserAccount.value.email
+    owner: useNuxtApp().$surrealUserAccount.value!.id,
+    ownerEmail: useNuxtApp().$surrealUserAccount.value!.email
   }
   const newJarValidation = newJarSchema.safeParse(jarData)
 
