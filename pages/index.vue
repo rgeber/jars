@@ -62,6 +62,12 @@ const stuff = async () => {
 //   console.log(ns)
 // })
 
+watch (useOidcAuth().user, (nv) => {
+  console.log('User object changed.')
+}, {
+  deep: true,
+})
+
 
 
 </script>

@@ -12,7 +12,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     const surreal = new Surreal()
     const surrealConnected = ref(false)
-    const surrealUserAccount = ref<User | null>(null)
+    const surrealUserAccount = ref<User>()
 
     const connectSurreal = async () => {
         try {
@@ -57,7 +57,8 @@ export default defineNuxtPlugin((nuxtApp) => {
                     if (newUserValidation.success) {
                         console.debug('Database entry for authenticated user created.', newUserValidation.data)
                         surrealUserAccount.value = newUserValidation.data;
-                    }                } else {
+                    }
+                } else {
                     console.error('Database entry creation for authenticated user failed due to validation failure.')
                 }
             }
@@ -73,9 +74,20 @@ export default defineNuxtPlugin((nuxtApp) => {
             async () => {
                 if (loggedIn.value === true) {
                     await connectSurreal()
+                } else {
+                    await surreal.invalidate()
                 }
             }, {immediate: true}
         )
+
+        // Re authenticate when the token changes
+        watch(useOidcAuth().user, async (nv) => {
+            console.debug('Authentication user data changed. Re-authenticating SurrealDB ...')
+            await surreal.authenticate(user.value.accessToken!)
+            console.debug('SurrealDB re-authenticating complete.')
+        }, {
+            deep: true,
+        })
     }
 
     return {

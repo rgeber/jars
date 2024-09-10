@@ -14,6 +14,9 @@ importers:
       '@pinia/nuxt':
         specifier: ^0.5.4
         version: 0.5.4(magicast@0.3.5)(rollup@4.21.2)(typescript@5.5.4)(vue@3.5.3(typescript@5.5.4))
+      luxon:
+        specifier: ^3.5.0
+        version: 3.5.0
       nuxt:
         specifier: ^3.13.0
         version: 3.13.1(@parcel/watcher@2.4.1)(@types/node@22.5.4)(bufferutil@4.0.8)(ioredis@5.4.1)(magicast@0.3.5)(rollup@4.21.2)(sass@1.78.0)(terser@5.31.6)(typescript@5.5.4)(utf-8-validate@6.0.4)(vite@5.4.3(@types/node@22.5.4)(sass@1.78.0)(terser@5.31.6))(vue-tsc@2.1.6(typescript@5.5.4))
@@ -33,6 +36,9 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
+      '@types/luxon':
+        specifier: ^3.4.2
+        version: 3.4.2
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.45)
@@ -1031,6 +1037,9 @@ packages:
 
   '@types/http-proxy@1.17.15':
     resolution: {integrity: sha512-25g5atgiVNTIv0LBDTg1H74Hvayx0ajtJPLLcYE3whFv75J0pWNtOBzaXJQgDTmrX1bx5U9YC2w/n65BN1HwRQ==}
+
+  '@types/luxon@3.4.2':
+    resolution: {integrity: sha512-TifLZlFudklWlMBfhubvgqTXRzLDI5pCbGa4P8a3wPyUQSW+1xQ5eDsreP9DWHX3tjq1ke96uYG/nwundroWcA==}
 
   '@types/node@22.5.4':
     resolution: {integrity: sha512-FDuKUJQm/ju9fT/SeX/6+gBzoPzlVCzfzmGkwKvRHQVxi4BntVbyIwf6a4Xn62mrvndLiml6z/UBXIdEVjQLXg==}
@@ -2187,6 +2196,10 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
+
+  luxon@3.5.0:
+    resolution: {integrity: sha512-rh+Zjr6DNfUYR3bPwJEnuwDdqMbxZW7LOQfUN4B54+Cl+0o5zaU9RJ6bcidfDtC1cWCZXQ+nvX8bf6bAji37QQ==}
+    engines: {node: '>=12'}
 
   magic-string-ast@0.6.2:
     resolution: {integrity: sha512-oN3Bcd7ZVt+0VGEs7402qR/tjgjbM7kPlH/z7ufJnzTLVBzXJITRHOJiwMmmYMgZfdoWQsfQcY+iKlxiBppnMA==}
@@ -4471,6 +4484,8 @@ snapshots:
     dependencies:
       '@types/node': 22.5.4
 
+  '@types/luxon@3.4.2': {}
+
   '@types/node@22.5.4':
     dependencies:
       undici-types: 6.19.8
@@ -5749,6 +5764,8 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
+
+  luxon@3.5.0: {}
 
   magic-string-ast@0.6.2:
     dependencies:

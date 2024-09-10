@@ -16,6 +16,7 @@
   "dependencies": {
     "@nuxt/icon": "^1.5.1",
     "@pinia/nuxt": "^0.5.4",
+    "luxon": "^3.5.0",
     "nuxt": "^3.13.0",
     "nuxt-oidc-auth": "^0.13.0",
     "surrealdb.js": "1.0.0-beta.18",
@@ -25,6 +26,7 @@
   },
   "packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1",
   "devDependencies": {
+    "@types/luxon": "^3.4.2",
     "autoprefixer": "^10.4.20",
     "concurrently": "^8.2.2",
     "postcss": "^8.4.45",
