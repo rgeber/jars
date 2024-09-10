@@ -29,7 +29,7 @@ export const useJarStore = defineStore('jar', () => {
 
             else if (action === 'DELETE') {
                 const localIndex = jars.value.findIndex(jar => jar.id.id === resultJar.id.id)
-                if (localIndex >= 0) deleteJarByIndex(localIndex)
+                if (localIndex >= 0) jars.value.splice(localIndex, 1)
                 else console.warn('Unable to find jar in store.', resultJar)
             }
 
