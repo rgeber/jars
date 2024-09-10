@@ -6,7 +6,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   const {loggedIn, user} = useOidcAuth()
   let refreshInProgress = false;
 
-  const intervalId = setInterval(async () => {
+  setInterval(async () => {
 
     if (refreshInProgress) return;
 
@@ -18,7 +18,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     const now = Math.floor(DateTime.utc().toSeconds())
 
-    if (user.value.expireAt <= now + 20) {
+    if (user.value.expireAt <= now + rt_config.public.auth.tokenRefreshThreshold) {
       console.debug('Auth token expired or about to expire. Refreshing ...')
       refreshInProgress = true
       await useOidcAuth().refresh()
@@ -26,5 +26,5 @@ export default defineNuxtPlugin((nuxtApp) => {
       console.debug('Auth token refreshed.')
     }
 
-  }, 5000);
+  }, rt_config.public.auth.tokenRefreshInterval * 1000);
 });

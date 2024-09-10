@@ -8,6 +8,13 @@ export default defineNuxtConfig({
                 url: 'ws://localhost:3001/rpc',
                 ns: 'jars',
                 db: 'jars'
+            },
+            auth: {
+                // Length of token refresh interval in seconds
+                tokenRefreshInterval: 5,
+
+                // Refresh token when within n seconds of expiry (define in seconds)
+                tokenRefreshThreshold: 45
             }
         }
     },
