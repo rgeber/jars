@@ -1,7 +1,7 @@
-import Surreal, {RecordId} from "surrealdb.js";
+import Surreal from "surrealdb.js";
 import {watch, ref} from 'vue';
 import {useUserService} from "~/composables/useUser";
-import {type User, userSchema} from "~/types/user";
+import {type NewUser, newUserSchema, type User, userSchema} from "~/types/user";
 
 export default defineNuxtPlugin((nuxtApp) => {
 
@@ -12,7 +12,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     const surreal = new Surreal()
     const surrealConnected = ref(false)
-    const surrealUserAccount = ref()
+    const surrealUserAccount = ref<User | null>(null)
 
     const connectSurreal = async () => {
         try {
@@ -34,29 +34,32 @@ export default defineNuxtPlugin((nuxtApp) => {
             surrealConnected.value = true
 
             const {getUserByUsername, createUser} = useUserService()
-            const existingUser = await getUserByUsername('email@romangeber.com')
+            const existingUser: User | null = await getUserByUsername('email@romangeber.com')
 
-            if (existingUser === null) {
+            if (existingUser !== null) {
+                console.debug('Found existing user in database matching authenticated user.', existingUser)
+                surrealUserAccount.value = existingUser;
+            } else {
                 console.debug('No existing database entry for found for authenticated user. Creating entry.')
-                const newUserEntry: User = {
-                    id: new RecordId('user', user.value.providerInfo.email),
+
+                const newUserEntry: NewUser = {
                     username: user.value.providerInfo.nickname,
                     email: user.value.providerInfo.email,
                     creationDate: new Date(),
                     name: user.value.providerInfo.name,
                 }
 
-                const newUserValidation = userSchema.safeParse(newUserEntry);
+                const newUserValidation = newUserSchema.safeParse(newUserEntry);
 
                 if (newUserValidation.success) {
-                    await createUser(newUserEntry)
-                    console.debug('Database entry for authenticated user created.')
-                    surrealUserAccount.value = newUserEntry;
-                } else {
+                    const newUserValidation = userSchema.safeParse(await createUser(newUserEntry))
+
+                    if (newUserValidation.success) {
+                        console.debug('Database entry for authenticated user created.', newUserValidation.data)
+                        surrealUserAccount.value = newUserValidation.data;
+                    }                } else {
                     console.error('Database entry creation for authenticated user failed due to validation failure.')
                 }
-            } else {
-                surrealUserAccount.value = existingUser;
             }
 
         } catch (e) {

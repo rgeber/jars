@@ -2,7 +2,6 @@ import {z} from "zod";
 import {RecordId} from "surrealdb.js";
 
 export const newUserSchema = z.object({
-    id: z.instanceof(RecordId),
     username: z.string().min(3).max(63),
     email: z.string().email(),
     creationDate: z.date(),
