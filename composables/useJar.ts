@@ -1,35 +1,39 @@
 import {RecordId} from "surrealdb.js";
-import type {Jar} from "~/types/jar";
+import {type Jar, jarSchema, type NewJar} from "~/types/jar";
+import {z} from "zod";
 
 export const useJarService = () => {
     const {$surreal} = useNuxtApp();  // Access SurrealDB instance
 
     // Fetch a character by username
-    const getJarById = async (id: string): Promise<Jar | null> => {
-        const result = await $surreal.select<Jar>(new RecordId('jar', id))
-        return result.length > 0 ? result[0] : null;
-    };
+    const getJarById = async (id: RecordId): Promise<Jar | null> => {
+        const validatedResult = jarSchema.safeParse(await $surreal.select(id))
+        return validatedResult.success ?  <Jar>validatedResult.data : null
+    }
 
     // Create a new character
-    const createJar = async (newJar: Jar): Promise<Jar | null> => {
-        const result = await $surreal.create<Jar>('jar', newJar)
-        return result.length > 0 ? result[0] : null;
-    };
+    const createJar = async (newJar: NewJar): Promise<Jar | null> => {
+        const validatedResult = jarSchema.safeParse(await $surreal.create('jar', newJar))
+        return validatedResult.success ?  <Jar>validatedResult.data : null
+    }
 
     // Update an existing character
-    const updateJar = async (id: string, updatedData: Partial<Jar>): Promise<void> => {
-        await $surreal.merge(`jar:${id}`, updatedData);
-    };
+    const updateJar = async (id: RecordId, updatedData: Partial<Jar>): Promise<Jar | null> => {
+        const validatedResult = jarSchema.safeParse(await $surreal.merge(id, updatedData))
+        return validatedResult.success ?  <Jar>validatedResult.data : null
+    }
 
     // Delete a character by ID
-    const deleteJar = async (id: string): Promise<void> => {
-        await $surreal.delete(`jar:${id}`);
-    };
+    const deleteJar = async (id: RecordId): Promise<Jar | null> => {
+        const validatedResult = jarSchema.safeParse(await $surreal.delete(id))
+        return validatedResult.success ?  <Jar>validatedResult.data : null
+    }
 
     const getAllJars = async (): Promise<Jar[]> => {
-        const result = await $surreal.query<[Jar[]]>('SELECT * FROM jar')
-        return result[0];
-    };
+        const queryResult = await $surreal.query('SELECT * FROM jar')
+        const validatedResult = z.array(jarSchema).safeParse(queryResult[0])
+        return validatedResult.success ?  <Jar[]>validatedResult.data : []
+    }
 
     return {
         getJarById,
@@ -37,5 +41,5 @@ export const useJarService = () => {
         updateJar,
         deleteJar,
         getAllJars,
-    };
-};
+    }
+}

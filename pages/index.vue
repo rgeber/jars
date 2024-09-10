@@ -13,11 +13,14 @@
     <p>
       <button @click="stuff()">Fetch Jars</button>
     </p>
+    <p>
+      <button @click="deleteJarByIndex(0)">Delete Jar [0]</button>
+    </p>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {type Jar, jarSchema} from "~/types/jar"
+import {type Jar, jarSchema, type NewJar, newJarSchema} from "~/types/jar"
 import {RecordId} from "surrealdb.js";
 import {useJarService} from "~/composables/useJar";
 import {useJarStore} from "~/stores/jar";
@@ -25,33 +28,30 @@ import {useJarStore} from "~/stores/jar";
 const {logout, refresh} = useOidcAuth()
 
 const createJar = async () => {
-  const jarData: Jar = {
-    id: new RecordId('test', 'test'+new Date()),
-    title: 'xx',
+  const {createJar, getAllJars} = useJarService()
+
+  const jarData: NewJar = {
+    title: 'New shit',
     creationDate: new Date,
-    kind: 'Jar',
     owner: useNuxtApp().$surrealUserAccount.value.id,
     ownerEmail: useNuxtApp().$surrealUserAccount.value.email
   }
-  const jar = jarSchema.safeParse(jarData)
-  console.log(jar)
+  const newJarValidation = newJarSchema.safeParse(jarData)
 
-
-  const {createJar, getAllJars} = useJarService()
-
-  console.log(await createJar(jarData))
+  if (newJarValidation.success) {
+      console.log(await createJar(newJarValidation.data))
+  }
 
   const existingJars = await getAllJars()
   console.log(existingJars)
-
 }
 
 const {jars} = storeToRefs(useJarStore())
-const {fetchAllJars} = useJarStore()
+const {fetchAllJars, deleteJarByIndex} = useJarStore()
 
 const stuff = async () => {
   await fetchAllJars();
-  console.log(jars.value[0])
+  console.log(jars.value)
 }
 
 

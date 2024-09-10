@@ -44,7 +44,6 @@ export default defineNuxtPlugin((nuxtApp) => {
                     email: user.value.providerInfo.email,
                     creationDate: new Date(),
                     name: user.value.providerInfo.name,
-                    kind: "User"
                 }
 
                 const newUserValidation = userSchema.safeParse(newUserEntry);

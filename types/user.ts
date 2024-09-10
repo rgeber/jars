@@ -1,12 +1,18 @@
 import {z} from "zod";
-import {recordIdSchema} from "~/types/common";
+import {RecordId} from "surrealdb.js";
 
-export const userSchema = z.object({
-    id: recordIdSchema,
+export const newUserSchema = z.object({
+    id: z.instanceof(RecordId),
     username: z.string().min(3).max(63),
     email: z.string().email(),
     creationDate: z.date(),
     name: z.string().min(1).max(63)
 })
 
-export type User = z.infer<typeof userSchema> & {kind: 'User'}
+export type NewUser = z.infer<typeof newUserSchema>
+
+export const userSchema = newUserSchema.extend({
+    id: z.instanceof(RecordId),
+})
+
+export type User = z.infer<typeof userSchema>
