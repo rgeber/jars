@@ -24,17 +24,25 @@ import {type NewJar, newJarSchema} from "~/types/jar"
 
 import {useJarService} from "~/composables/useJar";
 import {useJarStore} from "~/stores/jar";
+import {authSessionUserSchema} from "~/types/auth_session_user";
+import {userSchema} from "~/types/user";
 
 const {logout, refresh} = useOidcAuth()
 
 const createJar = async () => {
   const {createJar, getAllJars} = useJarService()
 
+  const surrealUserValidation = userSchema.safeParse(useNuxtApp().$surrealUserAccount.value)
+
+  if (!surrealUserValidation.success) {
+    return console.error('Surreal user object failed validation.')
+  }
+
   const jarData: NewJar = {
     title: 'New shit',
     creationDate: new Date,
-    owner: useNuxtApp().$surrealUserAccount.value!.id,
-    ownerEmail: useNuxtApp().$surrealUserAccount.value!.email
+    owner: surrealUserValidation.data.id,
+    ownerEmail: surrealUserValidation.data.email
   }
   const newJarValidation = newJarSchema.safeParse(jarData)
 
