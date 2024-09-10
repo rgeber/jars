@@ -19,7 +19,7 @@ export const useUserService = () => {
     // Create a new character
     const createUser = async (newUser: NewUser): Promise<User | null> => {
         const userId = new RecordId('user', newUser.email)
-        const validatedResult = userSchema.safeParse(await $surreal.create(userId, newUser))
+        const validatedResult = userSchema.safeParse((await $surreal.create(userId, newUser))[0])
         return validatedResult.success ?  <User>validatedResult.data : null
     }
 

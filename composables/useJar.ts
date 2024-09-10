@@ -1,4 +1,4 @@
-import {RecordId} from "surrealdb.js";
+import {RecordId, Uuid} from "surrealdb.js";
 import {type Jar, jarSchema, type NewJar} from "~/types/jar";
 import {z} from "zod";
 
@@ -13,7 +13,7 @@ export const useJarService = () => {
 
     // Create a new character
     const createJar = async (newJar: NewJar): Promise<Jar | null> => {
-        const validatedResult = jarSchema.safeParse(await $surreal.create('jar', newJar))
+        const validatedResult = jarSchema.safeParse((await $surreal.create('jar', newJar))[0])
         return validatedResult.success ?  <Jar>validatedResult.data : null
     }
 
@@ -35,11 +35,16 @@ export const useJarService = () => {
         return validatedResult.success ?  <Jar[]>validatedResult.data : []
     }
 
+    const subscribeJars = async ():Promise<Uuid> => {
+        return await $surreal.live('jars')
+    }
+
     return {
         getJarById,
         createJar,
         updateJar,
         deleteJar,
         getAllJars,
+        subscribeJars,
     }
 }

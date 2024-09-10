@@ -16,6 +16,9 @@
     <p>
       <button @click="deleteJarByIndex(0)">Delete Jar [0]</button>
     </p>
+    <p>
+      <button @click="useJarStore().startLiveQuery()">Start live query</button>
+    </p>
   </div>
 </template>
 
@@ -24,7 +27,6 @@ import {type NewJar, newJarSchema} from "~/types/jar"
 
 import {useJarService} from "~/composables/useJar";
 import {useJarStore} from "~/stores/jar";
-import {authSessionUserSchema} from "~/types/auth_session_user";
 import {userSchema} from "~/types/user";
 
 const {logout, refresh} = useOidcAuth()
@@ -63,7 +65,10 @@ const stuff = async () => {
 }
 
 
-// watch (() => useNuxtApp().$surrealConnected, (nv) => console.log(nv.value), {immediate: true})
+watch (() => useNuxtApp().$surrealConnected, async (nv) => {
+  console.log(nv.value)
+  await useJarStore().startLiveQuery()
+}, {immediate: true})
 
 // onBeforeMount(async () => {
 //   const ns = await $surreal.query("INFO FOR NS;")
@@ -76,6 +81,8 @@ watch (useOidcAuth().user, (nv) => {
   deep: true,
 })
 
-
+// onBeforeMount(async () => {
+//   await useJarStore().startLiveQuery()
+// })
 
 </script>
