@@ -23,7 +23,6 @@ export const useJarStore = defineStore('jar', () => {
 
             if (action === 'CREATE') {
                 const localIndex = jars.value.findIndex(jar => jar.id.id === resultJar.id.id)
-                console.log(localIndex)
                 if (localIndex < 0) jars.value.push(resultJar)
             }
 

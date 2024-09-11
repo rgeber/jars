@@ -19,6 +19,13 @@
     <p>
       <button @click="useJarStore().startLiveQuery()">Start live query</button>
     </p>
+
+    <hr>
+
+    <jar-create-form/>
+
+    <jar-list/>
+
   </div>
 </template>
 
