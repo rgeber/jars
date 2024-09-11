@@ -12,6 +12,10 @@ DEFINE TABLE jar SCHEMAFULL
 ;
 
 DEFINE FIELD title ON jar TYPE string;
+
+DEFINE INDEX unique_slug ON jar FIELDS slug UNIQUE;
+DEFINE FIELD slug ON jar TYPE string;
+
 DEFINE FIELD owner ON jar TYPE record;
 DEFINE FIELD ownerEmail ON jar TYPE string;
 DEFINE FIELD creationDate ON jar TYPE datetime DEFAULT time::now();

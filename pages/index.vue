@@ -22,9 +22,11 @@
 
     <hr>
 
-    <jar-create-form/>
+    <h3>Jars:</h3>
 
+    <jar-create-form/>
     <jar-list/>
+
 
   </div>
 </template>

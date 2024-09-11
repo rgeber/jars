@@ -26,13 +26,8 @@ export const useJarService = () => {
     // DB creation
     const createJarFromFormData = async (createFormData: JarCreateForm): Promise<Jar | null> => {
 
-        const ownerValidation = userSchema.safeParse(useNuxtApp().$surrealUserAccount.value)
-        if (!ownerValidation.success) {
-            console.error('Unable to validate SurrealDB user object.', useNuxtApp().$surrealUserAccount.value)
-            return null
-        }
-
-        const owner = ownerValidation.data
+        const owner = getValidatedOwner()
+        if (owner === null) return null;
 
         const newJar = {
             ...createFormData,
@@ -67,7 +62,7 @@ export const useJarService = () => {
     // ---------------------------------------------------------------------------------------------------------------
     // TODO: Is this even needed?
     const subscribeJars = async ():Promise<Uuid> => {
-        return await $surreal.live('jars')
+        return await $surreal.live('jar')
     }
 
     // ---------------------------------------------------------------------------------------------------------------

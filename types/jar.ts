@@ -1,9 +1,10 @@
 import {z} from "zod";
 import {RecordId} from "surrealdb.js";
-
+import {getSlugRegEx} from "~/utils/url_utils";
 
 export const jarCreateFormSchema = z.object({
-  title: z.string().min(0).max(127)
+  title: z.string().min(0).max(127),
+  slug: z.string().min(0).regex(getSlugRegEx()).nullable()
 })
 
 export type JarCreateForm = z.infer<typeof jarCreateFormSchema>
