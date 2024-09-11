@@ -43,8 +43,9 @@ export const useJarStore = defineStore('jar', () => {
 
     const fetchAllJars = async () => {
         jars.value = await useJarService().getAllJars();
-
     }
+
+    const getJarBySlug = (slug: string) => jars.value.find(jar => jar.slug === slug)
 
     const deleteJarByIndex = async (index: number): Promise<Jar | null> => {
         if (typeof jars.value[index] === 'undefined') {
@@ -57,5 +58,5 @@ export const useJarStore = defineStore('jar', () => {
         return deletedJar
     }
 
-    return {jars, fetchAllJars, deleteJarByIndex, startLiveQuery}
+    return {jars, fetchAllJars, deleteJarByIndex, startLiveQuery, getJarBySlug}
 })

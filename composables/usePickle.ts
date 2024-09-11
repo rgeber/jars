@@ -3,6 +3,7 @@ import {type Pickle, type PickleCreateForm, pickleSchema, type NewPickle} from "
 import {z} from "zod";
 import {userSchema} from "~/types/user";
 import {getValidatedOwner} from "~/utils/owner_utils";
+import type {Jar} from "~/types/jar";
 
 export const usePickleService = () => {
     const {$surreal} = useNuxtApp();  // Access SurrealDB instance
@@ -61,9 +62,12 @@ export const usePickleService = () => {
     }
 
     // ---------------------------------------------------------------------------------------------------------------
-    // TODO: Is this even needed?
-    const subscribePickles = async ():Promise<Uuid> => {
-        return await $surreal.live('pickle')
+    const getPickleForJar = async(jar: Jar): Promise<Pickle[]> => {
+        const queryResult = await $surreal.query('SELECT * FROM pickle WHERE jar=record::id($jar)', {
+            jar: jar.id
+        })
+        const validatedResult = z.array(pickleSchema).safeParse(queryResult[0])
+        return validatedResult.success ?  <Pickle[]>validatedResult.data : []
     }
 
     // ---------------------------------------------------------------------------------------------------------------
@@ -74,6 +78,6 @@ export const usePickleService = () => {
         updatePickle,
         deletePickle,
         getAllPickles,
-        subscribePickles,
+        getPickleForJar
     }
 }

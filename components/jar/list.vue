@@ -2,7 +2,7 @@
 <div>
   <ul>
     <li v-for="(jar, arrayIndex) in jars" :key="arrayIndex">
-      <nuxt-link class="">{{jar.title}}</nuxt-link>
+      <nuxt-link class="" :to="{name: 'jar-slug', params: { slug: jar.slug }}">{{jar.title}}</nuxt-link>
     </li>
   </ul>
 </div>

@@ -18,7 +18,8 @@ const props = defineProps({
 
 const formData = ref<PickleCreateForm>(pickleCreateFormSchema.parse({
   value: '',
-  jar: props.jar
+  jar: props.jar.id,
+  type: 'text/text'
 }))
 
 const submitForm = async () => {
