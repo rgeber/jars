@@ -1,8 +1,8 @@
 <template>
-<div>
-  <input type="text" @keydown.enter.prevent="submitForm" v-model="formData.value" placeholder="Add pickle ...">
-  <button @click="submitForm">Create</button>
-</div>
+  <div>
+    <input type="text" @keydown.enter.prevent="submitForm" v-model="formData.value" placeholder="Add pickle ...">
+    <button @click="submitForm">Create</button>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -23,8 +23,16 @@ const formData = ref<PickleCreateForm>(pickleCreateFormSchema.parse({
 }))
 
 const submitForm = async () => {
-  await usePickleService().createPickleFromFormData(formData.value)
-  formData.value = pickleCreateFormSchema.parse({title: ''})
+  try {
+    await usePickleService().createPickleFromFormData(formData.value)
+    formData.value = pickleCreateFormSchema.parse({
+      value: '',
+      jar: props.jar.id,
+      type: 'text/text'
+    })
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 </script>

@@ -3,7 +3,8 @@ import {RecordId} from "surrealdb.js";
 
 
 export const pickleCreateFormSchema = z.object({
-    type: z.enum(['text/text', 'text/markdown', 'image/jpg', 'image/png', 'image/webp', 'application/epub+zip']),
+    // type: z.enum(['text/text', 'text/markdown', 'image/jpg', 'image/png', 'image/webp', 'application/epub+zip']),
+    type: z.string(),
     value: z.string().nullable(),
     jar: z.instanceof(RecordId)
 })

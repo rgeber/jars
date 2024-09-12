@@ -1,7 +1,6 @@
 import {RecordId, Uuid} from "surrealdb.js";
 import {type Pickle, type PickleCreateForm, pickleSchema, type NewPickle} from "~/types/pickle";
 import {z} from "zod";
-import {userSchema} from "~/types/user";
 import {getValidatedOwner} from "~/utils/owner_utils";
 import type {Jar} from "~/types/jar";
 
@@ -55,7 +54,7 @@ export const usePickleService = () => {
     }
 
     // ---------------------------------------------------------------------------------------------------------------
-    const getAllPickles = async (): Promise<Pickle[]> => {
+    const getAllPickle = async (): Promise<Pickle[]> => {
         const queryResult = await $surreal.query('SELECT * FROM pickle')
         const validatedResult = z.array(pickleSchema).safeParse(queryResult[0])
         return validatedResult.success ?  <Pickle[]>validatedResult.data : []
@@ -63,9 +62,12 @@ export const usePickleService = () => {
 
     // ---------------------------------------------------------------------------------------------------------------
     const getPickleForJar = async(jar: Jar): Promise<Pickle[]> => {
-        const queryResult = await $surreal.query('SELECT * FROM pickle WHERE jar=record::id($jar)', {
+
+        console.debug('Fetching pickle for jar.', jar)
+        const queryResult = await $surreal.query('SELECT * FROM pickle WHERE jar=$jar', {
             jar: jar.id
         })
+
         const validatedResult = z.array(pickleSchema).safeParse(queryResult[0])
         return validatedResult.success ?  <Pickle[]>validatedResult.data : []
     }
@@ -77,7 +79,7 @@ export const usePickleService = () => {
         createPickleFromFormData,
         updatePickle,
         deletePickle,
-        getAllPickles,
+        getAllPickle,
         getPickleForJar
     }
 }

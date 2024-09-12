@@ -1,22 +1,27 @@
 <template>
   <div>
     <h1>This is your Jar: {{route.params.slug}}</h1>
-
     <hr>
-
-    <pickle-create-form :jar="jar"/>
+    <pickle-create-form v-if="jar" :jar="jar"/>
+    <hr>
+    <pickle-list v-if="jar" :jar="jar"/>
   </div>
 </template>
 
-<script setup>
-const route = useRoute()
-const jar = useJarStore().getJarBySlug(route.params.slug)
+<script setup lang="ts">
+import type {Jar} from "~/types/jar";
 
-console.log(route.params.slug)
-console.log(useJarStore().getJarBySlug(route.params.slug))
+const route = useRoute()
+const jar = ref<Jar|null>(null)
 
 onBeforeMount(async () => {
   await useJarStore().fetchAllJars()
+
+  if (route.params.slug && typeof route.params.slug === 'string') {
+    jar.value = useJarStore().getJarBySlug(route.params.slug)
+    await usePickleStore().fetchForJar(jar.value!)
+    await usePickleStore().startLiveQuery()
+  }
 })
 
 </script>

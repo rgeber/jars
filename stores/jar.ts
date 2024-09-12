@@ -24,15 +24,11 @@ export const useJarStore = defineStore('jar', () => {
             if (action === 'CREATE') {
                 const localIndex = jars.value.findIndex(jar => jar.id.id === resultJar.id.id)
                 if (localIndex < 0) jars.value.push(resultJar)
-            }
-
-            else if (action === 'DELETE') {
+            } else if (action === 'DELETE') {
                 const localIndex = jars.value.findIndex(jar => jar.id.id === resultJar.id.id)
                 if (localIndex >= 0) jars.value.splice(localIndex, 1)
                 else console.warn('Unable to find jar in store.', resultJar)
-            }
-
-            else if (action === 'UPDATE') {
+            } else if (action === 'UPDATE') {
                 const localIndex = jars.value.findIndex(jar => jar.id.id === resultJar.id.id)
                 if (localIndex >= 0) jars.value[localIndex] = resultJar
                 else jars.value.push(resultJar)
@@ -45,7 +41,10 @@ export const useJarStore = defineStore('jar', () => {
         jars.value = await useJarService().getAllJars();
     }
 
-    const getJarBySlug = (slug: string) => jars.value.find(jar => jar.slug === slug)
+    const getJarBySlug = (slug: string): Jar | null => {
+        const jar = jars.value.find((jar: Jar) => jar.slug === slug);
+        return jar === undefined ? null : jar;
+    };
 
     const deleteJarByIndex = async (index: number): Promise<Jar | null> => {
         if (typeof jars.value[index] === 'undefined') {
