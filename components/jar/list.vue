@@ -1,15 +1,10 @@
 <template>
-<div>
-  <ul>
-    <li v-for="(jar, arrayIndex) in jars" :key="arrayIndex">
-      <nuxt-link class="" :to="{name: 'jar-slug', params: { slug: jar.slug }}">{{jar.title}}</nuxt-link>
-    </li>
-  </ul>
+<div class="app-jar-list">
+  <jar-list-item v-if="jars.length > 0" v-for="jar in jars" :key="jar.id.id" :jar="jar" />
+  <jar-list-emtpy v-else/>
 </div>
 </template>
 
 <script setup>
-
 const {jars} = storeToRefs(useJarStore())
-
 </script>

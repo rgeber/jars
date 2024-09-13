@@ -1,0 +1,36 @@
+button {
+  @apply bg-gray-100 border-gray-300 border px-4 py-1.5;
+}
+
+input, select {
+  @apply border border-gray-300 p-2;
+}
+
+header {
+  @apply bg-fuchsia-700 text-white px-2 py-1.5;
+
+  h1 {
+    @apply text-3xl
+  }
+
+  .app-auth-button-logout {
+    @apply text-2xl
+  }
+}
+
+.app-jar-list {
+  .app-jar-list-item {
+    @apply px-3 py-4 bg-gray-100 border-b border-gray-300 text-2xl;
+
+    .app-jar-list-item-icon-jar {
+      @apply text-3xl text-fuchsia-500
+    }
+
+    div:has(>.app-jar-list-item-icon-delete) {
+      @apply bg-rose-400 p-2 rounded-full w-fit;
+    }
+    .app-jar-list-item-icon-delete {
+      @apply text-rose-50;
+    }
+  }
+}
