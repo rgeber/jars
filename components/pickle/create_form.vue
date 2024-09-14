@@ -1,7 +1,12 @@
 <template>
-  <div>
-    <input type="text" @keydown.enter.prevent="submitForm" v-model="formData.value" placeholder="Add pickle ...">
-    <button @click="submitForm">Create</button>
+  <div class="flex flex-col gap-2 w-full">
+
+
+    <textarea class="w-full h-[12.2rem]" @keydown.enter.prevent="submitForm" v-model="formData.value"
+              placeholder="Add pickle ..."></textarea>
+    <button @click="submitForm">
+      Create
+    </button>
   </div>
 </template>
 

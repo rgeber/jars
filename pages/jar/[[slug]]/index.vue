@@ -1,8 +1,7 @@
 <template>
   <div>
-    <h1>This is your Jar: {{route.params.slug}}</h1>
-    <hr>
-    <pickle-create-form v-if="jar" :jar="jar"/>
+    <ui-section-header>Add pickle to {{ jar.title }}</ui-section-header>
+    <pickle-create-form v-if="jar" :jar="jar" class="p-2"/>
     <hr>
     <pickle-list v-if="jar" :jar="jar"/>
   </div>
