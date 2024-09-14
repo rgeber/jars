@@ -1,10 +1,6 @@
 <template>
-<div>
-  <ul>
-    <li v-for="(pickle, arrayIndex) in usePickleStore().pickle" :key="arrayIndex">
-      {{pickle.value}}
-    </li>
-  </ul>
+<div class="app-list">
+  <pickle-list-item v-for="pickle in usePickleStore().pickle" :key="pickle.id.id" :pickle="pickle" />
 </div>
 </template>
 

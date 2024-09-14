@@ -4,7 +4,7 @@
 
     <div class="flex flex-col gap-2 justify-center items-center mt-12">
       <icon name="game-icons:mason-jar" class="text-8xl"/>
-      <h3 class="text-2xl">You have no chars, yet.</h3>
+      <h3 class="text-2xl">You have no jars, yet.</h3>
 
       <p>Don't be jarless.</p>
       <p>Create your first jar right now :)</p>

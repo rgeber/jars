@@ -1,6 +1,6 @@
 <template>
   <div v-show="!considerDelete && !deleteProgress" class="flex items-center">
-    <icon class="app-jar-list-item-icon-delete" name="fa6-solid:trash-can"
+    <icon class="app-list-item-icon-delete" name="fa6-solid:trash-can"
           @click.prevent.stop="considerDelete = true; emit('considerDelete')"/>
   </div>
   <div v-show="considerDelete && !deleteProgress" class="flex items-center">

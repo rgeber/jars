@@ -18,18 +18,18 @@ header {
   }
 }
 
-.app-jar-list {
-  .app-jar-list-item {
+.app-list {
+  .app-list-item  {
     @apply px-3 py-4 bg-gray-100 border-b border-gray-300 text-2xl;
 
-    .app-jar-list-item-icon-jar {
+    .app-list-item-icon-type {
       @apply text-3xl text-fuchsia-500
     }
 
-    div:has(>.app-jar-list-item-icon-delete) {
+    div:has(>.app-list-item-icon-delete) {
       @apply bg-rose-400 p-2 rounded-full w-fit;
     }
-    .app-jar-list-item-icon-delete {
+    .app-list-item-icon-delete {
       @apply text-rose-50;
     }
   }
