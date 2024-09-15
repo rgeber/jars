@@ -2,6 +2,8 @@
 
 Jars is a very simple application allowing users to fill topic related jar related jars with pickle fitting the jars topic.
 
+> **WARNING**: The state of this project is early Alpha. It is not considered stable nor usable at this point. It's currently aimed at developers only. Use at your own risk.
+
 ## Motivation
 
 I have many ideas and other snippets of information that I keep dumping into various places like note-taking apps, the "Note to Self" section of my [Signal Messenger][10], text files, etc.
