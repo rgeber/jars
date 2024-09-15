@@ -53,7 +53,7 @@ Contributions are welcome. Feel free to suggest additional features, point out [
 * Allow for different types of pickle beyond text (e.g. images, audio, etc.)
 * "Detail view" for pickle instead of just a list display
 * Add Nuxt tests
-* Add docker compose file(s) for easy setup
+* Improve docker compose file(s) for easy setup
 * UI optimization for larger displays (e.g. desktop)
 
 ## Troubleshooting

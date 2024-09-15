@@ -1,6 +1,15 @@
 {
-  "name": "nuxt-app",
+  "name": "jars",
+  "description": "Very simple multi topic note taking.",
+  "author": "Roman Geber",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rgeber/jars"
+  },
+  "homepage": "https://github.com/rgeber/jars",
+  "license": "BSD-2-Clause",
   "private": true,
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "build": "nuxt build",
