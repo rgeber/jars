@@ -1,12 +1,12 @@
 # Jars
 
-Jars is a simple application allowing users to fill topic related jars with content fitting that topic.
+Jars is a very simple application allowing users to fill topic related jar related jars with pickle fitting the jars topic.
 
 ## Motivation
 
 I have many ideas and other snippets of information that I keep dumping into various places like note-taking apps, the "Note to Self" section of my [Signal Messenger][10], text files, etc.
 
-Jars is my attempt to create a home for all of this that's easily accessible and offers additional powerful features such as highlighting, adding metadata, etc.
+It also serves as a minimal but still useful example of using Nuxt.js, SurrealDB, TypeScript, OIDC and other techniques. So it's a bit of a development test bed.
 
 ### Goals
 
@@ -34,10 +34,6 @@ Jars was developed using [Authentik][1]. The following documentation is based on
 
 > TODO
 
-### Jars Integration
-
-> TODO
-
 ## Authors
 
 * [Roman Geber][12] - Initial Creator & Current Maintainer
@@ -48,8 +44,14 @@ Contributions are welcome. Feel free to suggest additional features, point out [
 
 ## TODO
 
+* Improve documentation. Especially on how to set up the OIDC provider.
 * Generator for SURQL files (e.g. ask for JWKS URL, Database, Namespace, etc.)
 * Generator for OIDC env variables
+* Add local authentication using SurrealDB's `SIGNUP` and `SIGNIN` functionality.
+* Allow for different types of pickle beyond text (e.g. images, audio, etc.)
+* "Detail view" for pickle instead of just a list display
+* Add Nuxt tests
+* Add docker compose file(s) for easy setup
 
 ## Troubleshooting
 
